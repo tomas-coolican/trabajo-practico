@@ -8,27 +8,137 @@
 <body>
     <header></header>
     <main>
-        <h1>Formulario</h1>
-        <form>
-            <fieldset>
-                <legend>Información Personal</legend>
-                <label for="nombre">Nombre y Apellido</label>
-                <input type="text" name="nombre" id="nombre"><br><br>
-                <label for="email">Correo Electrónico</label>
-                <input type="email" name="email" id="email"><br><br>
-                <label for="tel">Teléfono</label>
-                <input type="tel" name="tel" id="tel"><br><br>
-                <label for="dni-pas">DNI/Pasaporte</label>
-                <input type="number" name="dni-pas" id="dni-pas"><br>
-            </fieldset>
-            <fieldset>
-                <legend>Reserva</legend>
-            </fieldset>
-            <fieldset>
-                <legend>Extras</legend>
-                
-            </fieldset>
-        </form>
+        <div class="reserva-container">
+            <h2>Reservar un Vehículo</h2>
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>Información Personal</legend>
+                    <div class="form-grupo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre" placeholder="Tomás" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" name="apellido" id="apellido" placeholder="Coolican" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" name="email" id="email" placeholder="tomas@email.com" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="tel">Teléfono:</label>
+                        <input type="tel" name="tel" id="tel" placeholder="+54 11 4444 5678" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="dni-pas">DNI / Pasaporte:</label>
+                        <input type="number" name="dni-pas" id="dni-pas" placeholder="87654321" required>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Información de la Reserva</legend>
+                    <div class="form-grupo">
+                        <label for="tipo-vehiculo">Tipo de vehículo:</label>
+                        <select name="tipo-vehiculo" id="tipo-vehiculo" required>
+                            <option value>Selecciona un tipo</option>
+                            <option value="economico">Sedan</option>
+                            <option value="compacto">SUV</option>
+                            <option value="mediano">Deportivo</option>
+                            <option value="suv">Ejecutivo</option>
+                        </select>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="modelo">Modelo:</label>
+                        <select name="modelo" id="modelo" required>
+                            <option value>Selecciona un modelo</option>
+                            <option value="toyota-corolla">Toyota Corolla</option>
+                            <option value="range-rover-evoque">Range Rover Evoque</option>
+                            <option value="chevrolet-camaro">Chevrolet Camaro</option>
+                            <option value="mercedes-g-class">Mercedes-Benz G-Class</option>
+                        </select>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="fecha-retiro">Fecha de retiro:</label>
+                        <input type="date" name="fecha-retiro" id="fecha-retiro" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="fecha-devolucion">Fecha de devolución:</label>
+                        <input type="date" name="fecha-devolucion" id="fecha-devolucion" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="hora-retiro">Hora de retiro:</label>
+                        <input type="time" name="hora-retiro" id="hora-retiro">
+                    </div>
+                    <div class="form-grupo">
+                        <label for="sucursal">Sucursal de retiro:</label>
+                        <select name="sucursal" id="sucursal" required>
+                            <option value>Selecciona una sucursal</option>
+                            <option value="quilmes">Quilmes</option>
+                            <option value="san-nicolas">San Nicolás</option>
+                            <option value="palermo">Palermo</option>
+                            <option value="rosario">Rosario</option>
+                        </select>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="metodo-pago">Método de pago:</label>
+                        <div class="radio-grupo">
+                            <label>
+                                <input type="radio" name="pago" id="pago" value="efectivo" required>
+                                Efectivo
+                            </label>
+                            <label>
+                                <input type="radio" name="pago" id="pago" value="debito" required>
+                                Tarjeta de débito
+                            </label>
+                            <label>
+                                <input type="radio" name="pago" id="pago" value="credito" required>
+                                Tarjeta de crédito
+                            </label>
+                            <label>
+                                <input type="radio" name="pago" id="pago" value="transferencia" required>
+                                Transferencia bancaria
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Opciones Adicionales</legend>
+                    <div class="form-grupo">
+                        <label for="extras">Extras:</label>
+                        <div class="checkbox-grupo">
+                            <label>
+                                <input type="checkbox" name="gps" id="gps" value="si">
+                                GPS Incluído
+                            </label>
+                            <label>
+                                <input type="checkbox" name="silla" id="silla" value="si">
+                                Silla para bebés / niños
+                            </label>
+                            <label>
+                                <input type="checkbox" name="seguro" id="seguro" value="si">
+                                Seguro adicional
+                            </label>
+                            <label>
+                                <input type="checkbox" name="chofer" id="chofer" value="si">
+                                Chofer incluido
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Comentarios</legend>
+                    <div class="form-grupo">
+                        <label for="observaciones">Observaciones adicionales:</label>
+                        <textarea name="observaciones" id="observaciones" placeholder="Lugar para escribir consultas / pedidos especiales" rows="5"></textarea>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-grupo">
+                        <button type="submit" class="btn-enviar">Enviar reserva</button>
+                        <button type="reset" class="btn-limpiar">Limpiar formulario</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </main>
     <footer></footer>
 </body>
