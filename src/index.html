@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rick and Morty - Personajes</title>
+  <link rel="stylesheet" href="styles/global.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="header__title">Rick and Morty</h1>
+      <p class="header__subtitle">Personajes</p>
+    </div>
+  </header>
+
+  <main class="container" id="app">
+    <section class="controls">
+      <input type="text" id="search" class="input" placeholder="Buscar personaje..." />
+      <select id="status-filter" class="select">
+        <option value="">Todos los estados</option>
+        <option value="alive">Vivo</option>
+        <option value="dead">Muerto</option>
+        <option value="unknown">Desconocido</option>
+      </select>
+      <button id="sort-toggle" class="btn btn--secondary">Ordenar A-Z</button>
+      <button id="favorites-toggle" class="btn btn--secondary">★ Favoritos</button>
+    </section>
+
+    <div id="status-message" class="status-message"></div>
+    <div id="character-grid" class="grid"></div>
+    <div id="pagination" class="pagination"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>TP2 — Rick and Morty API</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
