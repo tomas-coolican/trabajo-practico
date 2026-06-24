@@ -1,3 +1,13 @@
 import '../styles/global.css';
+import { fetchCharacters } from './api/api.js';
 
-console.log('Rick and Morty App — Listado');
+async function init() {
+  try {
+    const data = await fetchCharacters();
+    console.log('Personajes cargados:', data);
+  } catch (error) {
+    console.error('Error al cargar personajes:', error.message);
+  }
+}
+
+init();
