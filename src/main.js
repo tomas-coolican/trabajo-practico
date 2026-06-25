@@ -1,5 +1,5 @@
-import '../styles/global.css';
-import { fetchCharacters } from './api/api.js';
+import './styles/global.css';
+import { fetchCharacters } from './services/api.js';
 
 async function init() {
   try {

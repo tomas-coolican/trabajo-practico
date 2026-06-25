@@ -1,5 +1,5 @@
-import '../styles/global.css';
-import { fetchCharacterById } from './api/api.js';
+import './styles/global.css';
+import { fetchCharacterById } from './services/api.js';
 
 async function init() {
   const params = new URLSearchParams(window.location.search);
