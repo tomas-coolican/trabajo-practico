@@ -1,21 +1,12 @@
 import './styles/global.css';
-import { fetchCharacterById } from './services/api.js';
+import { loadCharacterDetail } from './pages/detailPage.js';
 
-async function init() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
 
-  if (!id) {
-    console.error('No se proporcionó un ID de personaje.');
-    return;
-  }
-
-  try {
-    const character = await fetchCharacterById(Number(id));
-    console.log('Personaje cargado:', character);
-  } catch (error) {
-    console.error('Error al cargar personaje:', error.message);
-  }
+if (!id) {
+  const statusEl = document.getElementById('status-message');
+  statusEl.innerHTML = '<p>No se especificó un personaje.</p>';
+} else {
+  loadCharacterDetail(Number(id));
 }
-
-init();
