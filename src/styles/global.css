@@ -346,6 +346,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.detail__fav-btn {
+  margin-bottom: 1rem;
+}
+
 .detail__info p {
   margin-bottom: 0.5rem;
   color: var(--color-text-muted);

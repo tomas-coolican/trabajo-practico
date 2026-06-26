@@ -1,7 +1,8 @@
-import { fetchCharacters } from '../services/api.js';
+import { fetchCharacters, fetchCharactersByIds } from '../services/api.js';
 import { createCharacterCard } from '../components/CharacterCard.js';
 import { renderStatusMessage } from '../components/StatusMessage.js';
 import { renderPagination } from '../components/Pagination.js';
+import { getFavorites } from '../utils/favorites.js';
 
 const grid = document.getElementById('character-grid');
 const statusEl = document.getElementById('status-message');
@@ -12,6 +13,7 @@ let currentPage = 1;
 let totalPages = 1;
 let currentResults = [];
 let sortOrder = 'asc';
+let favoritesOnly = false;
 
 function debounce(fn, delay) {
   let timer;
@@ -24,7 +26,7 @@ function debounce(fn, delay) {
 function renderCharacters(characters) {
   grid.innerHTML = '';
   characters.forEach((character) => {
-    grid.appendChild(createCharacterCard(character));
+    grid.appendChild(createCharacterCard(character, onFavToggle));
   });
 }
 
@@ -35,6 +37,57 @@ function applySort(results, order) {
     return order === 'asc' ? cmp : -cmp;
   });
   return sorted;
+}
+
+function onFavToggle(id, nowFavorite) {
+  if (favoritesOnly && !nowFavorite) {
+    loadFavoriteCharacters();
+  }
+}
+
+function disableControls(disabled) {
+  const controls = [
+    document.getElementById('search'),
+    document.getElementById('status-filter'),
+    document.getElementById('sort-toggle'),
+  ];
+  controls.forEach((el) => {
+    if (el) el.disabled = disabled;
+  });
+}
+
+async function loadFavoriteCharacters() {
+  disableControls(true);
+
+  renderStatusMessage(statusEl, { type: 'loading' });
+  grid.innerHTML = '';
+  paginationEl.innerHTML = '';
+
+  const ids = getFavorites();
+
+  if (ids.length === 0) {
+    renderStatusMessage(statusEl, {
+      type: 'empty',
+      message: 'No tenés personajes favoritos todavía. Hacé clic en la estrella ★ para agregar.',
+    });
+    currentResults = [];
+    return;
+  }
+
+  try {
+    const results = await fetchCharactersByIds(ids);
+    statusEl.innerHTML = '';
+    currentResults = Array.isArray(results) ? results : [results];
+
+    const sorted = applySort(currentResults, sortOrder);
+    renderCharacters(sorted);
+  } catch (error) {
+    renderStatusMessage(statusEl, {
+      type: 'error',
+      message: error.message,
+      onRetry: loadFavoriteCharacters,
+    });
+  }
 }
 
 export async function loadCharacters(overrides = {}) {
@@ -82,9 +135,11 @@ function setupEvents() {
   const searchInput = document.getElementById('search');
   const statusFilter = document.getElementById('status-filter');
   const sortToggle = document.getElementById('sort-toggle');
+  const favToggle = document.getElementById('favorites-toggle');
 
   if (searchInput) {
     const onSearch = debounce((value) => {
+      if (favoritesOnly) return;
       filters.name = value || undefined;
       loadCharacters({ page: 1 });
     }, 300);
@@ -94,6 +149,7 @@ function setupEvents() {
 
   if (statusFilter) {
     statusFilter.addEventListener('change', (e) => {
+      if (favoritesOnly) return;
       filters.status = e.target.value || undefined;
       loadCharacters({ page: 1 });
     });
@@ -107,6 +163,20 @@ function setupEvents() {
 
       if (currentResults.length > 0) {
         renderCharacters(applySort(currentResults, sortOrder));
+      }
+    });
+  }
+
+  if (favToggle) {
+    favToggle.addEventListener('click', () => {
+      favoritesOnly = !favoritesOnly;
+      favToggle.classList.toggle('btn--active', favoritesOnly);
+
+      if (favoritesOnly) {
+        loadFavoriteCharacters();
+      } else {
+        disableControls(false);
+        loadCharacters({ page: 1 });
       }
     });
   }

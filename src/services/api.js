@@ -41,3 +41,10 @@ export async function fetchCharacterById(id) {
   }
   return data;
 }
+
+export async function fetchCharactersByIds(ids) {
+  if (ids.length === 0) return [];
+  const data = await request(`/character/${ids.join(',')}`);
+  if (!data) return [];
+  return Array.isArray(data) ? data : [data];
+}
