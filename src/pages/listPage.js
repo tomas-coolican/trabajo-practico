@@ -50,7 +50,6 @@ function disableControls(disabled) {
   const controls = [
     document.getElementById('search'),
     document.getElementById('status-filter'),
-    document.getElementById('sort-toggle'),
   ];
   controls.forEach((el) => {
     if (el) el.disabled = disabled;
