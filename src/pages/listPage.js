@@ -12,7 +12,7 @@ let filters = {};
 let currentPage = 1;
 let totalPages = 1;
 let currentResults = [];
-let sortOrder = 'asc';
+let sortOrder = null;
 let favoritesOnly = false;
 
 function debounce(fn, delay) {
@@ -31,12 +31,13 @@ function renderCharacters(characters) {
 }
 
 function applySort(results, order) {
-  const sorted = [...results];
-  sorted.sort((a, b) => {
+  const copy = [...results];
+  if (order === null) return copy;
+  copy.sort((a, b) => {
     const cmp = a.name.localeCompare(b.name);
     return order === 'asc' ? cmp : -cmp;
   });
-  return sorted;
+  return copy;
 }
 
 function onFavToggle(id, nowFavorite) {
@@ -157,9 +158,12 @@ function setupEvents() {
 
   if (sortToggle) {
     sortToggle.addEventListener('click', () => {
-      sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-      sortToggle.textContent = sortOrder === 'asc' ? 'Ordenar A-Z' : 'Ordenar Z-A';
-      sortToggle.classList.toggle('btn--active');
+      const next = { asc: 'desc', desc: null, null: 'asc' };
+      sortOrder = next[sortOrder];
+
+      const labels = { asc: 'Orden A-Z', desc: 'Orden Z-A', null: 'Sin orden' };
+      sortToggle.textContent = labels[sortOrder];
+      sortToggle.classList.toggle('btn--active', sortOrder !== null);
 
       if (currentResults.length > 0) {
         renderCharacters(applySort(currentResults, sortOrder));
