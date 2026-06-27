@@ -4,17 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rick and Morty - Personajes</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles/global.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <h1 class="header__title">Rick and Morty</h1>
-      <p class="header__subtitle">Personajes</p>
+  <header class="header hero">
+    <div class="container hero__content">
+      <p class="hero__eyebrow">Sistema de exploracion interdimensional</p>
+      <h1 class="header__title hero__logo-title">
+        <img class="hero__logo" src="assets/rick-and-morty-logo.png" alt="Rick and Morty" />
+      </h1>
+      <p class="header__subtitle">Multiverse Explorer</p>
+      <p class="hero__intro">
+        Explora personajes, realidades y ubicaciones conectadas por la API publica de Rick and Morty.
+      </p>
+      <div class="hero__stats" aria-label="Estadisticas del universo">
+        <div class="hero__stat">
+          <strong>826</strong>
+          <span>Personajes</span>
+        </div>
+        <div class="hero__stat">
+          <strong>126</strong>
+          <span>Ubicaciones</span>
+        </div>
+        <div class="hero__stat">
+          <strong>86</strong>
+          <span>Episodios</span>
+        </div>
+        <div class="hero__stat">
+          <strong>126</strong>
+          <span>Lugares</span>
+        </div>
+      </div>
+      <a class="hero__scroll" href="#explorer">Iniciar busqueda</a>
     </div>
   </header>
 
-  <main class="container" id="app">
+  <main class="container" id="explorer">
     <section class="controls">
       <input type="text" id="search" class="input" placeholder="Buscar personaje..." />
       <select id="status-filter" class="select">
