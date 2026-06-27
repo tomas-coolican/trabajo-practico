@@ -164,7 +164,7 @@ body::before {
   display: flex;
   align-items: center;
   margin-bottom: 0;
-  padding: 5rem 0;
+  padding: 3.5rem 0;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(1, 8, 10, 0.62) 42%, rgba(1, 8, 10, 0.3) 100%),
     linear-gradient(180deg, rgba(2, 8, 9, 0.2) 0%, rgba(2, 8, 9, 0.96) 100%),
@@ -182,10 +182,10 @@ body::before {
 
 .hero__content {
   display: grid;
-  gap: 1rem;
+  gap: 0.75rem;
   align-content: center;
   max-width: var(--max-width);
-  min-height: calc(100svh - 10rem);
+  min-height: calc(100svh - 7rem);
 }
 
 .hero__eyebrow {
@@ -216,13 +216,13 @@ body::before {
 }
 
 .hero__logo-title {
-  width: min(760px, 100%);
+  width: min(440px, 100%);
   line-height: 1;
 }
 
 .hero__logo {
   display: block;
-  width: min(760px, 100%);
+  width: min(440px, 100%);
   height: auto;
   filter:
     drop-shadow(0 0 6px rgba(101, 255, 56, 0.85))
@@ -246,14 +246,14 @@ body::before {
 
 .hero__stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.8rem;
-  margin-top: 0.35rem;
-  max-width: 620px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  max-width: 540px;
 }
 
 .hero__stat {
-  padding: 0.8rem;
+  padding: 0.6rem 0.7rem;
   background: rgba(1, 18, 20, 0.76);
   border: 1px solid rgba(56, 247, 255, 0.34);
   border-radius: var(--radius);
@@ -267,7 +267,7 @@ body::before {
 
 .hero__stat strong {
   color: var(--color-success);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 1;
   text-shadow: var(--glow-green);
 }
@@ -731,15 +731,16 @@ body::before {
   }
 
   .hero {
-    min-height: 100svh;
-    padding: 4rem 0 3rem;
+    min-height: 100dvh;
+    padding: 3rem 0 2.5rem;
     background:
       linear-gradient(180deg, rgba(0, 0, 0, 0.86) 0%, rgba(1, 8, 10, 0.64) 52%, rgba(1, 8, 10, 0.96) 100%),
       url('../assets/rick-morty-multiverse.png') 58% center / cover no-repeat;
   }
 
   .hero__content {
-    min-height: calc(100svh - 7rem);
+    min-height: calc(100dvh - 5.5rem);
+    gap: 0.7rem;
     align-content: end;
   }
 
@@ -748,12 +749,30 @@ body::before {
   }
 
   .hero__logo {
-    width: min(520px, 100%);
+    width: min(320px, 85%);
   }
 
   .hero__stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: 360px;
+    gap: 0.5rem;
+  }
+
+  .hero__stat {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .hero__stat strong {
+    font-size: 1.35rem;
+  }
+
+  .hero__intro {
+    font-size: 0.9rem;
+  }
+
+  .hero__scroll {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.78rem;
   }
 
   .controls {
