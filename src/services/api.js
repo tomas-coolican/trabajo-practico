@@ -2,6 +2,8 @@ const BASE_URL = 'https://rickandmortyapi.com/api';
 
 async function request(endpoint, params = {}) {
   const query = new URLSearchParams();
+
+  // Solo se envian parametros con valor real para no generar filtros invalidos en la API.
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== '') {
       query.set(key, String(value));
@@ -18,6 +20,7 @@ async function request(endpoint, params = {}) {
     throw new Error('Error de conexión. Verificá tu conexión a internet.');
   }
 
+  // En listados, la API responde 404 cuando no hay coincidencias; se transforma en estado vacio.
   if (response.status === 404) {
     return null;
   }
@@ -44,6 +47,8 @@ export async function fetchCharacterById(id) {
 
 export async function fetchCharactersByIds(ids) {
   if (ids.length === 0) return [];
+
+  // La API devuelve un objeto para un solo id y un array para varios; se normaliza aqui.
   const data = await request(`/character/${ids.join(',')}`);
   if (!data) return [];
   return Array.isArray(data) ? data : [data];

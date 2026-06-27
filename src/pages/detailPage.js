@@ -29,6 +29,7 @@ function renderDetail(character) {
   `;
 
   detailEl.querySelector('.detail__fav-btn').addEventListener('click', () => {
+    // Se actualiza solo el boton para evitar volver a renderizar todo el detalle.
     const nowFavorite = toggleFavorite(character.id);
     const btn = detailEl.querySelector('.detail__fav-btn');
     btn.textContent = nowFavorite ? '★ Quitar de favoritos' : '☆ Agregar a favoritos';

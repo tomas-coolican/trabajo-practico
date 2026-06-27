@@ -25,6 +25,7 @@ export function createCharacterCard(character, onToggle = null) {
   `;
 
   card.querySelector('.card__favorite').addEventListener('click', (e) => {
+    // La estrella tiene una accion propia y no debe disparar la navegacion de la card.
     e.stopPropagation();
     const btn = e.currentTarget;
     const id = Number(btn.dataset.id);
@@ -36,6 +37,7 @@ export function createCharacterCard(character, onToggle = null) {
 
   card.addEventListener('click', (e) => {
     if (e.target.closest('.card__favorite')) return;
+
     window.location.href = `details.html?id=${character.id}`;
   });
 

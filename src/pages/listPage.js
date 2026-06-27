@@ -8,6 +8,12 @@ const grid = document.getElementById('character-grid');
 const statusEl = document.getElementById('status-message');
 const paginationEl = document.getElementById('pagination');
 
+const SORT_LABELS = {
+  asc: 'Orden A-Z',
+  desc: 'Orden Z-A',
+  none: 'Sin orden',
+};
+
 let filters = {};
 let currentPage = 1;
 let totalPages = 1;
@@ -33,6 +39,8 @@ function renderCharacters(characters) {
 function applySort(results, order) {
   const copy = [...results];
   if (order === null) return copy;
+
+  // Ordena una copia para mantener intactos los datos originales de la API.
   copy.sort((a, b) => {
     const cmp = a.name.localeCompare(b.name);
     return order === 'asc' ? cmp : -cmp;
@@ -41,6 +49,7 @@ function applySort(results, order) {
 }
 
 function onFavToggle(id, nowFavorite) {
+  // Si se quita un favorito mientras se ve esa lista, se recarga para sacarlo de pantalla.
   if (favoritesOnly && !nowFavorite) {
     loadFavoriteCharacters();
   }
@@ -75,6 +84,7 @@ async function loadFavoriteCharacters() {
   }
 
   try {
+    // La API permite pedir varios personajes en una sola request usando ids separados por coma.
     const results = await fetchCharactersByIds(ids);
     statusEl.innerHTML = '';
     currentResults = Array.isArray(results) ? results : [results];
@@ -91,6 +101,7 @@ async function loadFavoriteCharacters() {
 }
 
 export async function loadCharacters(overrides = {}) {
+  // Los overrides permiten reutilizar el loader para paginacion sin perder filtros activos.
   const params = { ...filters, ...overrides };
   currentPage = params.page || 1;
 
@@ -140,6 +151,8 @@ function setupEvents() {
   if (searchInput) {
     const onSearch = debounce((value) => {
       if (favoritesOnly) return;
+
+      // Al cambiar criterios se vuelve a la primera pagina para evitar resultados desfasados.
       filters.name = value || undefined;
       loadCharacters({ page: 1 });
     }, 300);
@@ -150,6 +163,7 @@ function setupEvents() {
   if (statusFilter) {
     statusFilter.addEventListener('change', (e) => {
       if (favoritesOnly) return;
+
       filters.status = e.target.value || undefined;
       loadCharacters({ page: 1 });
     });
@@ -160,8 +174,7 @@ function setupEvents() {
       const next = { asc: 'desc', desc: null, null: 'asc' };
       sortOrder = next[sortOrder];
 
-      const labels = { asc: 'Orden A-Z', desc: 'Orden Z-A', null: 'Sin orden' };
-      sortToggle.textContent = labels[sortOrder];
+      sortToggle.textContent = SORT_LABELS[sortOrder ?? 'none'];
       sortToggle.classList.toggle('btn--active', sortOrder !== null);
 
       if (currentResults.length > 0) {
@@ -185,5 +198,7 @@ function setupEvents() {
   }
 }
 
-loadCharacters();
-setupEvents();
+export function initListPage() {
+  loadCharacters();
+  setupEvents();
+}

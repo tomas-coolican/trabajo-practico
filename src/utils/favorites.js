@@ -5,6 +5,7 @@ export function getFavorites() {
     const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : [];
   } catch {
+    // Si localStorage tiene datos corruptos, la app sigue funcionando con una lista vacia.
     return [];
   }
 }
@@ -12,13 +13,16 @@ export function getFavorites() {
 export function toggleFavorite(id) {
   const favorites = getFavorites();
   const index = favorites.indexOf(id);
-  if (index === -1) {
+  const wasFavorite = index !== -1;
+
+  if (!wasFavorite) {
     favorites.push(id);
   } else {
     favorites.splice(index, 1);
   }
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-  return !(index !== -1);
+  return !wasFavorite;
 }
 
 export function isFavorite(id) {
